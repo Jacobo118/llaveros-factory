@@ -1,0 +1,37 @@
+---
+// Icono inline a partir de lucide-static. Uso: <Icon name="factory" class="w-6 h-6" />
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className = "w-6 h-6" } = Astro.props;
+
+const icons = import.meta.glob<string>("../../node_modules/lucide-static/icons/*.svg", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+});
+
+// Lucide no incluye logotipos de marca; se definen aparte para redes sociales.
+const brandIcons: Record<string, string> = {
+  instagram:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>',
+  linkedin:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>',
+  youtube:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17z"></path><path d="m10 15 5-3-5-3z"></path></svg>',
+};
+
+const path = `../../node_modules/lucide-static/icons/${name}.svg`;
+let svg = icons[path] ?? brandIcons[name] ?? "";
+
+if (svg) {
+  svg = svg.replace(/<!--[\s\S]*?-->/g, "");
+  svg = svg.includes("class=")
+    ? svg.replace(/class="[^"]*"/, `class="${className}"`)
+    : svg.replace("<svg ", `<svg class="${className}" `);
+}
+---
+
+{svg ? <Fragment set:html={svg} /> : <span class={className} aria-hidden="true" />}

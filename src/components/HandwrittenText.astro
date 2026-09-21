@@ -1,0 +1,30 @@
+---
+// Frase manuscrita con subrayado a pincel (SVG), estilo "Más que llaveros".
+interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: className = "" } = Astro.props;
+---
+
+<span class={`inline-block ${className}`}>
+  <span class="relative inline-block font-hand text-2xl sm:text-3xl text-white">
+    {text}
+    <svg
+      class="absolute -bottom-2 left-0 w-full"
+      height="10"
+      viewBox="0 0 200 10"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M2 6 C 40 2, 80 9, 120 4 C 150 1, 175 7, 198 3"
+        fill="none"
+        stroke="#E3131B"
+        stroke-width="4"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+  </span>
+</span>

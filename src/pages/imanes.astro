@@ -1,0 +1,109 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import Icon from "../components/Icon.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import Button from "../components/Button.astro";
+import CTABanner from "../components/CTABanner.astro";
+
+const ventajas = [
+  { icon: "shield-check", title: "Resistentes", desc: "PVC flexible y duradero, apto para uso diario en nevera o metal." },
+  { icon: "sparkles", title: "Gran nivel de detalle", desc: "Colores vivos y acabados con relieve fieles a tu diseño." },
+  { icon: "shapes", title: "Cualquier forma", desc: "Troquelado a medida según el contorno de tu diseño." },
+  { icon: "palette", title: "Colores Pantone", desc: "Ajustamos los colores a tu identidad de marca." },
+];
+
+const usos = ["Marcas y negocios", "Eventos", "Empresas", "Promociones"];
+---
+
+<Layout
+  title="Imanes de PVC personalizados"
+  description="Imanes de PVC personalizados para marcas, eventos, empresas y promociones. Fabricación propia y gran nivel de detalle."
+  path="/imanes"
+>
+  <PageHero
+    tag="Imanes de PVC"
+    title="IMANES"
+    titleBrand="PERSONALIZADOS"
+    description="Imanes personalizados para marcas, eventos, empresas y promociones."
+    bgFile="imanes-hero-fondo.webp"
+    bgLabel="Fondo de taller para cabecera de imanes"
+  />
+
+  <section class="bg-ink">
+    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+      {ventajas.map((v) => (
+        <div class="fade-in flex flex-col gap-3 rounded-2xl border border-card-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand">
+          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
+            <Icon name={v.icon} class="h-5 w-5" />
+          </span>
+          <h3 class="text-lg text-white normal-case tracking-normal">{v.title}</h3>
+          <p class="text-sm text-white/60">{v.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-card/40 border-y border-white/5">
+    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <p class="label-tag mb-4">Dónde se usan</p>
+      <div class="flex flex-wrap gap-3">
+        {usos.map((u) => (
+          <span class="rounded-full border border-white/15 px-4 py-2 text-sm text-white/80">{u}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <SectionTitle
+        tag="Galería"
+        titleParts={[{ text: "Imanes que" }, { text: "hemos fabricado", brand: true }]}
+        class="mb-8"
+      />
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {Array.from({ length: 6 }).map((_, i) => {
+          const n = String(i + 1).padStart(2, "0");
+          return (
+            <ImageSlot
+              src={`/img/imanes-galeria-${n}.webp`}
+              label={`Imán de ejemplo ${n}`}
+              file={`imanes-galeria-${n}.webp`}
+              size="600x600px"
+              aspect="aspect-square"
+              class="rounded-xl"
+            />
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-light">
+    <div class="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6 lg:px-8">
+      <SectionTitle
+        tag="Precio directo de fábrica"
+        titleParts={[{ text: "Precio de" }, { text: "tus imanes", brand: true }]}
+        light
+        align="center"
+        class="mx-auto mb-6 [&>h2]:mx-auto"
+      />
+      <p class="mb-8 text-black/60">
+        El precio de los imanes varía según tamaño y acabado. Cuéntanos tu
+        proyecto y te preparamos un presupuesto ajustado.
+      </p>
+      <div class="mx-auto w-fit rounded-2xl bg-light-card px-10 py-8 shadow-xl shadow-black/5">
+        <p class="font-display text-3xl text-brand">Consúltanos</p>
+        <p class="mt-2 text-sm text-black/50">Presupuesto a medida, sin compromiso.</p>
+      </div>
+      <Button href="/contacto" class="mt-8">Pedir presupuesto</Button>
+    </div>
+  </section>
+
+  <CTABanner
+    title="¿Tienes una idea para un imán?"
+    description="Hablemos. Te asesoramos y te ayudamos a hacerlo realidad."
+  />
+</Layout>

@@ -1,0 +1,109 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import Icon from "../components/Icon.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import PriceTable from "../components/PriceTable.astro";
+import CTABanner from "../components/CTABanner.astro";
+import { PRECIOS_LLAVEROS, PRECIOS_NOTA } from "../data/precios";
+
+const ventajas = [
+  { icon: "shield-check", title: "Resistentes", desc: "PVC de alta durabilidad, resistente al agua y al uso diario." },
+  { icon: "sparkles", title: "Gran nivel de detalle", desc: "Reproducimos logos y diseños complejos con precisión." },
+  { icon: "shapes", title: "Cualquier forma", desc: "Sin límite de silueta: tu diseño marca la forma final." },
+  { icon: "palette", title: "Colores Pantone", desc: "Ajustamos los colores a tu identidad de marca." },
+];
+
+const usos = [
+  "Marcas y negocios",
+  "Eventos y ferias",
+  "Merchandising",
+  "Regalos de empresa",
+];
+---
+
+<Layout
+  title="Llaveros de PVC personalizados"
+  description="Llaveros de PVC 100% personalizados, resistentes y con gran nivel de detalle. Cualquier forma y color Pantone. Fabricación propia."
+  path="/llaveros"
+>
+  <PageHero
+    tag="Llaveros de PVC"
+    title="LLAVEROS"
+    titleBrand="PERSONALIZADOS"
+    description="Diseños 100% personalizados, resistentes, con gran nivel de detalle y todo tipo de formas."
+    bgFile="llaveros-hero-fondo.webp"
+    bgLabel="Fondo de taller para cabecera de llaveros"
+  />
+
+  <section class="bg-ink">
+    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+      {ventajas.map((v) => (
+        <div class="fade-in flex flex-col gap-3 rounded-2xl border border-card-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand">
+          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
+            <Icon name={v.icon} class="h-5 w-5" />
+          </span>
+          <h3 class="text-lg text-white normal-case tracking-normal">{v.title}</h3>
+          <p class="text-sm text-white/60">{v.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-card/40 border-y border-white/5">
+    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <p class="label-tag mb-4">Dónde se usan</p>
+      <div class="flex flex-wrap gap-3">
+        {usos.map((u) => (
+          <span class="rounded-full border border-white/15 px-4 py-2 text-sm text-white/80">{u}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <SectionTitle
+        tag="Galería"
+        titleParts={[{ text: "Llaveros que" }, { text: "hemos fabricado", brand: true }]}
+        class="mb-8"
+      />
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {Array.from({ length: 9 }).map((_, i) => {
+          const n = String(i + 1).padStart(2, "0");
+          return (
+            <ImageSlot
+              src={`/img/llaveros-galeria-${n}.webp`}
+              label={`Llavero de ejemplo ${n}`}
+              file={`llaveros-galeria-${n}.webp`}
+              size="600x600px"
+              aspect="aspect-square"
+              class="rounded-xl"
+            />
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-light">
+    <div class="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
+      <SectionTitle
+        tag="Precio directo de fábrica"
+        titleParts={[{ text: "Precios por" }, { text: "cantidad", brand: true }]}
+        light
+        align="center"
+        class="mx-auto mb-8 [&>h2]:mx-auto"
+      />
+      <div class="rounded-2xl bg-light-card p-6 text-left shadow-xl shadow-black/5 sm:p-8">
+        <PriceTable tramos={PRECIOS_LLAVEROS} nota={PRECIOS_NOTA} />
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="¿Listo para tus llaveros personalizados?"
+    description="Cuéntanos tu idea y te enviamos un mockup sin compromiso."
+  />
+</Layout>

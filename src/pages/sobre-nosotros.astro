@@ -1,0 +1,81 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import Icon from "../components/Icon.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CTABanner from "../components/CTABanner.astro";
+import { COMPANY_HISTORY_PLACEHOLDER } from "../config";
+
+const valores = [
+  { icon: "factory", title: "Fabricación propia", desc: "Controlamos cada fase del proceso, de principio a fin." },
+  { icon: "users", title: "Atención personalizada", desc: "Acompañamos a cada cliente desde la idea hasta el envío." },
+  { icon: "wrench", title: "Soluciones a medida", desc: "Nos adaptamos a proyectos de cualquier tamaño." },
+];
+---
+
+<Layout
+  title="Sobre nosotros"
+  description="Más de 10 años fabricando llaveros e imanes de PVC personalizados. Conoce a Llaveros Factory."
+  path="/sobre-nosotros"
+>
+  <PageHero
+    tag="Sobre nosotros"
+    title="MÁS DE 10 AÑOS"
+    titleBrand="FABRICANDO"
+    description="Fabricación propia, calidad garantizada y un equipo que convierte ideas en productos reales."
+    bgFile="sobre-hero-fondo.webp"
+    bgLabel="Fondo de fábrica para cabecera de sobre nosotros"
+  />
+
+  <section class="bg-ink">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
+      <ImageSlot
+        src="/img/sobre-fabrica.webp"
+        label="Interior de la fábrica"
+        file="sobre-fabrica.webp"
+        size="1000x800px"
+        aspect="aspect-[5/4]"
+        class="rounded-2xl"
+      />
+      <div class="fade-in flex flex-col gap-4">
+        <p class="label-tag">Nuestra historia</p>
+        <h2 class="text-3xl text-white">De la idea al producto,<br />sin intermediarios</h2>
+        <p class="whitespace-pre-line rounded-xl border border-dashed border-white/20 bg-card p-4 text-sm text-white/60">
+          {COMPANY_HISTORY_PLACEHOLDER}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-card/40 border-y border-white/5">
+    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
+      <div class="order-2 lg:order-1 fade-in flex flex-col gap-6">
+        {valores.map((v) => (
+          <div class="flex items-start gap-4">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand">
+              <Icon name={v.icon} class="h-5 w-5" />
+            </span>
+            <div>
+              <h3 class="text-lg text-white normal-case tracking-normal">{v.title}</h3>
+              <p class="text-sm text-white/60">{v.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <ImageSlot
+        src="/img/sobre-equipo.webp"
+        label="Equipo de Llaveros Factory"
+        file="sobre-equipo.webp"
+        size="1000x800px"
+        aspect="aspect-[5/4]"
+        class="order-1 lg:order-2 rounded-2xl"
+      />
+    </div>
+  </section>
+
+  <CTABanner
+    title="¿Quieres conocer más sobre nosotros?"
+    description="Hablemos. Te asesoramos y te ayudamos a hacerlo realidad."
+  />
+</Layout>

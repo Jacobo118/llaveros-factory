@@ -1,0 +1,31 @@
+---
+interface Props {
+  tag: string;
+  titleParts: { text: string; brand?: boolean }[];
+  as?: "h1" | "h2" | "h3";
+  light?: boolean;
+  align?: "left" | "center";
+  class?: string;
+}
+
+const {
+  tag,
+  titleParts,
+  as: Tag = "h2",
+  light = false,
+  align = "left",
+  class: className = "",
+} = Astro.props;
+
+const alignClass = align === "center" ? "text-center items-center" : "text-left items-start";
+const titleColor = light ? "text-ink" : "text-white";
+---
+
+<div class={`flex flex-col gap-3 ${alignClass} ${className}`}>
+  <p class="label-tag">{tag}</p>
+  <Tag class={`text-3xl sm:text-4xl md:text-5xl ${titleColor}`}>
+    {titleParts.map((part) => (
+      <span class={part.brand ? "text-brand" : undefined}>{part.text} </span>
+    ))}
+  </Tag>
+</div>

@@ -1,0 +1,27 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  title,
+  description,
+  ctaLabel = "Pedir presupuesto",
+  ctaHref = "/contacto",
+} = Astro.props;
+---
+
+<section class="bg-ink">
+  <div class="mx-auto flex max-w-7xl flex-col items-start gap-6 border-t border-white/10 px-4 py-14 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+    <div class="max-w-xl">
+      <h2 class="text-2xl sm:text-3xl text-white">{title}</h2>
+      <p class="mt-2 text-white/60">{description}</p>
+    </div>
+    <Button href={ctaHref} class="shrink-0">{ctaLabel}</Button>
+  </div>
+</section>

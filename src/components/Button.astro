@@ -1,0 +1,28 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  href: string;
+  variant?: "solid" | "outline" | "outline-dark";
+  class?: string;
+  arrow?: boolean;
+}
+
+const { href, variant = "solid", class: className = "", arrow = true } = Astro.props;
+
+const base =
+  "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold uppercase tracking-wide transition-all duration-200";
+
+const variants: Record<string, string> = {
+  solid: "bg-brand text-white hover:bg-brand-dark hover:-translate-y-0.5",
+  outline:
+    "border-2 border-white text-white hover:bg-white hover:text-ink hover:-translate-y-0.5",
+  "outline-dark":
+    "border-2 border-ink text-ink hover:bg-ink hover:text-white hover:-translate-y-0.5",
+};
+---
+
+<a href={href} class={`${base} ${variants[variant]} ${className}`}>
+  <slot />
+  {arrow && <Icon name="arrow-right" class="h-4 w-4" />}
+</a>

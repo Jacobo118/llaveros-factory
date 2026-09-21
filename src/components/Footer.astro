@@ -1,0 +1,83 @@
+---
+import Icon from "./Icon.astro";
+import ImageSlot from "./ImageSlot.astro";
+import HandwrittenText from "./HandwrittenText.astro";
+import { SOCIAL } from "../config";
+
+const linksRowOne = [
+  { href: "/", label: "Inicio" },
+  { href: "/llaveros", label: "Llaveros" },
+  { href: "/imanes", label: "Imanes" },
+];
+const linksRowTwo = [
+  { href: "/como-trabajamos", label: "Cómo trabajamos" },
+  { href: "/sobre-nosotros", label: "Sobre nosotros" },
+  { href: "/contacto", label: "Contacto" },
+];
+
+const socials = [
+  { name: "instagram", href: SOCIAL.instagram, label: "Instagram" },
+  { name: "linkedin", href: SOCIAL.linkedin, label: "LinkedIn" },
+  { name: "youtube", href: SOCIAL.youtube, label: "YouTube" },
+];
+---
+
+<footer class="border-t border-white/10 bg-ink">
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div class="flex flex-col gap-4">
+      <ImageSlot
+        src="/img/logo.svg"
+        label="Logo Llaveros Factory"
+        file="logo.svg"
+        size="200x200px"
+        aspect="aspect-square"
+        class="h-14 w-14 rounded-full"
+        compact
+      />
+      <p class="max-w-xs text-sm text-white/60">
+        Fabricación de llaveros e imanes de PVC personalizados. Más de 10 años de
+        experiencia. Fabricación propia.
+      </p>
+    </div>
+
+    <nav class="flex flex-col gap-2 text-sm font-bold uppercase tracking-wide" aria-label="Enlaces del pie">
+      <div class="flex flex-wrap gap-x-6 gap-y-2">
+        {linksRowOne.map((l) => (
+          <a href={l.href} class="text-white/70 hover:text-white">{l.label}</a>
+        ))}
+      </div>
+      <div class="flex flex-wrap gap-x-6 gap-y-2">
+        {linksRowTwo.map((l) => (
+          <a href={l.href} class="text-white/70 hover:text-white">{l.label}</a>
+        ))}
+      </div>
+    </nav>
+
+    <div class="flex flex-col items-start gap-4 md:items-end">
+      <div class="flex gap-4">
+        {socials.map((s) =>
+          s.href ? (
+            <a href={s.href} aria-label={s.label} class="text-white/70 hover:text-brand" target="_blank" rel="noopener noreferrer">
+              <Icon name={s.name} class="h-5 w-5" />
+            </a>
+          ) : (
+            <span
+              class="text-white/25"
+              title={`[PENDIENTE: URL de ${s.label}]`}
+              aria-hidden="true"
+            >
+              <Icon name={s.name} class="h-5 w-5" />
+            </span>
+          )
+        )}
+      </div>
+      <HandwrittenText text="Tu idea, en buenas manos." class="text-xl" />
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <p class="mx-auto max-w-7xl px-4 py-5 text-xs text-white/40 sm:px-6 lg:px-8">
+      © 2026 Llaveros Factory. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>

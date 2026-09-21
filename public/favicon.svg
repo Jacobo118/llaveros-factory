@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="30" fill="#0B0B0B" stroke="#E3131B" stroke-width="3" />
+  <circle cx="32" cy="32" r="21" fill="#E3131B" />
+  <text x="32" y="29" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="9" fill="#FFFFFF">LLAVEROS</text>
+  <text x="32" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="9" fill="#FFFFFF">FACTORY</text>
+</svg>
