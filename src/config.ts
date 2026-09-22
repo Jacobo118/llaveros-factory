@@ -21,5 +21,4 @@ export const SOCIAL = {
 };
 
 // URL del webhook al que se envía el formulario de contacto (POST JSON).
-// Dejar vacío hasta tener el endpoint definitivo.
-export const WEBHOOK_URL = ""; // [PENDIENTE: URL del webhook de formulario]
+export const WEBHOOK_URL = "https://appn8n-n8n.icgf4x.easypanel.host/webhook/llaveros-factory-presupuesto";
