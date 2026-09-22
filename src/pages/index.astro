@@ -76,11 +76,10 @@ const galleryImages = [
       size="1920x1000px"
       tone="dark"
       gradient="left-soft"
-      fit="contain-mobile"
-      imgClass="sm:object-[78%_center]"
-      class="flex min-h-[60vh] items-center sm:min-h-[85vh]"
+      imgClass="hidden sm:block sm:object-[78%_center]"
+      class="flex flex-col py-12 sm:min-h-[85vh] sm:items-center sm:py-14"
     >
-      <Container align="left" class="relative flex h-full w-full items-center py-14">
+      <Container align="left" class="relative flex w-full flex-col gap-10 sm:h-full sm:items-center">
         <div class="flex max-w-4xl flex-col items-start gap-7 lg:ml-8 xl:ml-16">
           <p class="label-tag text-lg sm:text-xl">Tu marca siempre contigo</p>
           <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-white">
@@ -106,6 +105,16 @@ const galleryImages = [
             ))}
           </div>
         </div>
+
+        <ImageSlot
+          src="/img/banner.png"
+          label="Llaveros e imanes de PVC personalizados"
+          file="banner.png"
+          size="1920x1000px"
+          aspect="aspect-[16/11]"
+          bare
+          class="w-full sm:hidden"
+        />
       </Container>
     </BackgroundSlot>
   </section>
