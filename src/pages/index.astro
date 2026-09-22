@@ -87,7 +87,7 @@ const galleryImages = [
           size="1920x1000px"
           aspect="aspect-[16/11]"
           bare
-          class="order-1 w-full xl:hidden"
+          class="order-1 hidden w-full sm:block xl:hidden"
         />
 
         <div class="order-2 flex max-w-2xl flex-col items-start gap-7 xl:order-1 xl:max-w-xl">
@@ -106,7 +106,7 @@ const galleryImages = [
             <Button href="/contacto" class="!px-8 !py-4 !text-lg" iconClass="h-5 w-5">Pedir presupuesto</Button>
           </div>
 
-          <div class="mt-4 grid grid-cols-2 gap-x-10 gap-y-5 sm:grid-cols-4">
+          <div class="mt-4 grid grid-cols-2 gap-x-10 gap-y-5 2xl:grid-cols-4">
             {heroFeatures.map((f) => (
               <div class="flex items-center gap-3">
                 <Icon name={f.icon} class="h-7 w-7 shrink-0 text-brand" />
