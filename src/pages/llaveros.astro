@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PageHero from "../components/PageHero.astro";
+import Container from "../components/Container.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import Icon from "../components/Icon.astro";
 import ImageSlot from "../components/ImageSlot.astro";
@@ -16,10 +16,23 @@ const ventajas = [
 ];
 
 const usos = [
-  "Marcas y negocios",
-  "Eventos y ferias",
-  "Merchandising",
-  "Regalos de empresa",
+  { icon: "briefcase", title: "Marcas y negocios", desc: "Refuerza tu identidad en cada entrega a clientes." },
+  { icon: "calendar-days", title: "Eventos y ferias", desc: "Un recuerdo con tu marca que la gente se lleva a casa." },
+  { icon: "shopping-bag", title: "Merchandising", desc: "Producto de marca listo para vender o regalar." },
+  { icon: "gift", title: "Regalos de empresa", desc: "Un detalle con tu logo para clientes y equipo." },
+];
+
+// Huecos 1-6 ya tienen foto real; 7-9 siguen pendientes (placeholder).
+const llaverosGaleria = [
+  "llaveros-galeria-01.png",
+  "llaveros-galeria-02.png",
+  "llaveros-galeria-03.png",
+  "llaveros-galeria-04.png",
+  "llaveros-galeria-05.png",
+  "llaveros-galeria-06.png",
+  "llaveros-galeria-07.jpg",
+  "llaveros-galeria-08.png",
+  "llaveros-galeria-09.jpg",
 ];
 ---
 
@@ -28,78 +41,107 @@ const usos = [
   description="Llaveros de PVC 100% personalizados, resistentes y con gran nivel de detalle. Cualquier forma y color Pantone. Fabricación propia."
   path="/llaveros"
 >
-  <PageHero
-    tag="Llaveros de PVC"
-    title="LLAVEROS"
-    titleBrand="PERSONALIZADOS"
-    description="Diseños 100% personalizados, resistentes, con gran nivel de detalle y todo tipo de formas."
-    bgFile="llaveros-hero-fondo.webp"
-    bgLabel="Fondo de taller para cabecera de llaveros"
-  />
+  <section class="bg-ink pt-10 pb-8 sm:pt-14">
+    <Container class="grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div class="fade-in flex flex-col gap-6">
+        <p class="label-tag text-base sm:text-lg">Llaveros de PVC</p>
+        <h1 class="text-6xl sm:text-7xl text-white">
+          Llaveros <span class="text-brand">personalizados</span>
+        </h1>
+        <p class="max-w-lg text-xl text-white/70">
+          Diseños 100% personalizados, resistentes, con gran nivel de detalle y
+          todo tipo de formas.
+        </p>
+      </div>
+      <ImageSlot
+        src="/img/llaveros-intro.png"
+        label="Llavero de PVC personalizado"
+        file="llaveros-intro.png"
+        size="433x577px (fondo transparente)"
+        aspect="aspect-[4/3]"
+        bare
+        class="scale-125"
+      />
+    </Container>
+  </section>
 
-  <section class="bg-ink">
-    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+  <section class="bg-ink pb-14">
+    <Container class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {ventajas.map((v) => (
-        <div class="fade-in flex flex-col gap-3 rounded-2xl border border-card-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand">
+        <div class="fade-in flex flex-col gap-3 rounded-2xl border-2 border-brand bg-card p-6 transition-all duration-200 hover:-translate-y-1">
           <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
             <Icon name={v.icon} class="h-5 w-5" />
           </span>
-          <h3 class="text-lg text-white normal-case tracking-normal">{v.title}</h3>
+          <h3 class="text-lg font-bold text-white">{v.title}</h3>
           <p class="text-sm text-white/60">{v.desc}</p>
         </div>
       ))}
-    </div>
+    </Container>
   </section>
 
-  <section class="bg-card/40 border-y border-white/5">
-    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <p class="label-tag mb-4">Dónde se usan</p>
-      <div class="flex flex-wrap gap-3">
+  <section class="bg-light py-14">
+    <Container>
+      <SectionTitle
+        tag="Dónde se usan"
+        titleParts={[{ text: "Ideas para" }, { text: "cada ocasión", brand: true }]}
+        light
+        align="center"
+        class="mx-auto mb-10 max-w-xl text-center [&>h2]:mx-auto"
+      />
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {usos.map((u) => (
-          <span class="rounded-full border border-white/15 px-4 py-2 text-sm text-white/80">{u}</span>
+          <div class="fade-in flex flex-col items-center gap-3 rounded-2xl border-2 border-brand bg-card p-8 text-center transition-all duration-200 hover:-translate-y-1">
+            <span class="flex h-16 w-16 items-center justify-center rounded-full bg-brand/15 text-brand">
+              <Icon name={u.icon} class="h-8 w-8" />
+            </span>
+            <h3 class="text-lg font-bold text-white">{u.title}</h3>
+            <p class="text-sm text-white/60">{u.desc}</p>
+          </div>
         ))}
       </div>
-    </div>
+    </Container>
   </section>
 
-  <section class="bg-ink">
-    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <section class="bg-ink py-14">
+    <Container>
       <SectionTitle
         tag="Galería"
         titleParts={[{ text: "Llaveros que" }, { text: "hemos fabricado", brand: true }]}
         class="mb-8"
       />
       <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
-        {Array.from({ length: 9 }).map((_, i) => {
+        {llaverosGaleria.map((file, i) => {
           const n = String(i + 1).padStart(2, "0");
           return (
             <ImageSlot
-              src={`/img/llaveros-galeria-${n}.webp`}
+              src={`/img/${file}`}
               label={`Llavero de ejemplo ${n}`}
-              file={`llaveros-galeria-${n}.webp`}
+              file={file}
               size="600x600px"
               aspect="aspect-square"
-              class="rounded-xl"
+              class="rounded-xl border-2 border-brand"
             />
           );
         })}
       </div>
-    </div>
+    </Container>
   </section>
 
-  <section class="bg-light">
-    <div class="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
-      <SectionTitle
-        tag="Precio directo de fábrica"
-        titleParts={[{ text: "Precios por" }, { text: "cantidad", brand: true }]}
-        light
-        align="center"
-        class="mx-auto mb-8 [&>h2]:mx-auto"
-      />
-      <div class="rounded-2xl bg-light-card p-6 text-left shadow-xl shadow-black/5 sm:p-8">
-        <PriceTable tramos={PRECIOS_LLAVEROS} nota={PRECIOS_NOTA} />
+  <section class="bg-light py-14">
+    <Container class="text-center">
+      <div class="mx-auto max-w-2xl">
+        <SectionTitle
+          tag="Precio directo de fábrica"
+          titleParts={[{ text: "Precios por" }, { text: "cantidad", brand: true }]}
+          light
+          align="center"
+          class="mx-auto mb-8 [&>h2]:mx-auto"
+        />
+        <div class="rounded-2xl bg-light-card p-6 text-left shadow-xl shadow-black/5 sm:p-8">
+          <PriceTable tramos={PRECIOS_LLAVEROS} nota={PRECIOS_NOTA} />
+        </div>
       </div>
-    </div>
+    </Container>
   </section>
 
   <CTABanner

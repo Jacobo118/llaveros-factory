@@ -9,18 +9,13 @@ interface Props {
 const { tramos, nota } = Astro.props;
 ---
 
-<div class="overflow-hidden rounded-2xl border border-black/10">
-  {tramos.map((tramo, i) => (
-    <div
-      class:list={[
-        "flex items-center justify-between px-5 py-4",
-        i % 2 === 0 ? "bg-black/[0.03]" : "bg-transparent",
-      ]}
-    >
+<div class="flex flex-col gap-2.5">
+  {tramos.map((tramo) => (
+    <div class="flex items-center justify-between rounded-xl bg-light px-5 py-3">
       <span class="font-semibold text-ink">{tramo.cantidad}</span>
-      <span class="flex items-center gap-2 text-ink">
+      <span class="flex items-center gap-3">
         <span class="text-black/30">→</span>
-        <span class="font-display text-lg text-brand">{tramo.precioUd}</span>
+        <span class="font-bold text-ink">{tramo.precioUd}</span>
       </span>
     </div>
   ))}

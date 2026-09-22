@@ -10,20 +10,16 @@ export const SITE = {
 };
 
 export const CONTACT = {
-  whatsappNumber: "", // [PENDIENTE: número de WhatsApp en formato internacional, ej. 34600000000]
-  phoneDisplay: "[PENDIENTE: teléfono]",
-  email: "[PENDIENTE: email de contacto]",
-  address: "[PENDIENTE: dirección de la fábrica]",
+  whatsappNumber: "34660511546",
+  phoneDisplay: "+34 660 51 15 46",
+  email: "llaverosfactory@gmail.com",
+  address: "", // [PENDIENTE: dirección de la fábrica]
 };
 
 export const SOCIAL = {
-  instagram: "", // [PENDIENTE: URL de Instagram]
-  linkedin: "", // [PENDIENTE: URL de LinkedIn]
-  youtube: "", // [PENDIENTE: URL de YouTube]
+  instagram: "https://www.instagram.com/llaverosfactory/",
 };
 
 // URL del webhook al que se envía el formulario de contacto (POST JSON).
 // Dejar vacío hasta tener el endpoint definitivo.
 export const WEBHOOK_URL = ""; // [PENDIENTE: URL del webhook de formulario]
-
-export const COMPANY_HISTORY_PLACEHOLDER = `[PENDIENTE: historia real de la empresa — cómo y cuándo se fundó Llaveros Factory, hitos, filosofía de fabricación propia.]`;

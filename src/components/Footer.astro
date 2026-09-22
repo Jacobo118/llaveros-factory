@@ -2,6 +2,7 @@
 import Icon from "./Icon.astro";
 import ImageSlot from "./ImageSlot.astro";
 import HandwrittenText from "./HandwrittenText.astro";
+import Container from "./Container.astro";
 import { SOCIAL } from "../config";
 
 const linksRowOne = [
@@ -11,27 +12,22 @@ const linksRowOne = [
 ];
 const linksRowTwo = [
   { href: "/como-trabajamos", label: "Cómo trabajamos" },
-  { href: "/sobre-nosotros", label: "Sobre nosotros" },
   { href: "/contacto", label: "Contacto" },
 ];
 
-const socials = [
-  { name: "instagram", href: SOCIAL.instagram, label: "Instagram" },
-  { name: "linkedin", href: SOCIAL.linkedin, label: "LinkedIn" },
-  { name: "youtube", href: SOCIAL.youtube, label: "YouTube" },
-];
+const socials = [{ name: "instagram", href: SOCIAL.instagram, label: "Instagram" }];
 ---
 
 <footer class="border-t border-white/10 bg-ink">
-  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 lg:px-8">
+  <Container class="grid gap-10 py-14 md:grid-cols-3">
     <div class="flex flex-col gap-4">
       <ImageSlot
-        src="/img/logo.svg"
+        src="/img/logo_llavero.jpg"
         label="Logo Llaveros Factory"
-        file="logo.svg"
-        size="200x200px"
+        file="logo_llavero.jpg"
+        size="1024x1024px"
         aspect="aspect-square"
-        class="h-14 w-14 rounded-full"
+        class="h-16 w-16 self-start rounded-full"
         compact
       />
       <p class="max-w-xs text-sm text-white/60">
@@ -73,11 +69,11 @@ const socials = [
       </div>
       <HandwrittenText text="Tu idea, en buenas manos." class="text-xl" />
     </div>
-  </div>
+  </Container>
 
   <div class="border-t border-white/10">
-    <p class="mx-auto max-w-7xl px-4 py-5 text-xs text-white/40 sm:px-6 lg:px-8">
-      © 2026 Llaveros Factory. Todos los derechos reservados.
-    </p>
+    <Container class="py-5">
+      <p class="text-xs text-white/40">© 2026 Llaveros Factory. Todos los derechos reservados.</p>
+    </Container>
   </div>
 </footer>

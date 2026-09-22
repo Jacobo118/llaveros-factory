@@ -1,16 +1,20 @@
 ---
 // Frase manuscrita con subrayado a pincel (SVG), estilo "Más que llaveros".
+// Admite una o varias líneas (lines) además de un texto simple (text).
 interface Props {
-  text: string;
+  text?: string;
+  lines?: string[];
   class?: string;
+  tilt?: boolean;
 }
 
-const { text, class: className = "" } = Astro.props;
+const { text, lines, class: className = "", tilt = false } = Astro.props;
+const rows = lines ?? (text ? [text] : []);
 ---
 
-<span class={`inline-block ${className}`}>
-  <span class="relative inline-block font-hand text-2xl sm:text-3xl text-white">
-    {text}
+<span class={`inline-block ${tilt ? "-rotate-3" : ""} ${className}`}>
+  <span class="relative inline-block font-hand leading-tight text-2xl sm:text-3xl text-white">
+    {rows.map((row) => <span class="block">{row}</span>)}
     <svg
       class="absolute -bottom-2 left-0 w-full"
       height="10"

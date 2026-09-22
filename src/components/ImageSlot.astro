@@ -15,6 +15,8 @@ interface Props {
   loading?: "lazy" | "eager";
   light?: boolean;
   compact?: boolean;
+  bare?: boolean; // recorte de producto con fondo transparente: sin caja ni borde
+  fit?: "cover" | "contain"; // "contain" evita recortar la imagen (se ve entera)
 }
 
 const {
@@ -28,6 +30,8 @@ const {
   loading = "lazy",
   light = false,
   compact = false,
+  bare = false,
+  fit = "cover",
 } = Astro.props;
 
 const placeholderTone = light
@@ -39,32 +43,55 @@ const metaTone = light ? "text-black/35" : "text-white/40";
 const metaTone2 = light ? "text-black/25" : "text-white/30";
 ---
 
-<div class={`image-slot relative overflow-hidden ${aspect} ${className}`} data-src={src}>
-  <img
-    src={src}
-    alt={alt ?? label}
-    loading={loading}
-    decoding="async"
-    class="image-slot__img absolute inset-0 h-full w-full object-cover"
-    onerror="this.closest('.image-slot').classList.add('image-slot--missing'); this.remove();"
-  />
-  <div
-    class={`image-slot__placeholder absolute inset-0 hidden flex-col items-center justify-center gap-2 border border-dashed text-center ${compact ? "p-1" : "p-4"} ${placeholderTone}`}
-    title={compact ? `${label} — ${size} — ${file}` : undefined}
-  >
-    <Icon name="image" class={compact ? `h-1/2 w-1/2 ${iconTone}` : `h-8 w-8 ${iconTone}`} />
-    {!compact && (
-      <>
-        <p class={`text-xs font-semibold uppercase tracking-wide ${labelTone}`}>{label}</p>
-        <p class={`text-[11px] ${metaTone}`}>{size}</p>
-        <p class={`text-[11px] ${metaTone2}`}>{file}</p>
-      </>
-    )}
+{bare ? (
+  <div class={`image-slot-bare relative flex items-center justify-center ${aspect} ${className}`} data-src={src}>
+    <img
+      src={src}
+      alt={alt ?? label}
+      loading={loading}
+      decoding="async"
+      class="image-slot-bare__img h-full w-full object-contain"
+      onerror="this.closest('.image-slot-bare').classList.add('image-slot-bare--missing'); this.remove();"
+    />
+    <div
+      class={`image-slot-bare__placeholder hidden flex-col items-center justify-center gap-1 text-center ${light ? "text-black/35" : "text-white/40"}`}
+    >
+      <Icon name="image" class="h-10 w-10" />
+      <p class="text-[11px] font-medium">{label}</p>
+      <p class="text-[10px] opacity-70">{size} · {file}</p>
+    </div>
   </div>
-</div>
+) : (
+  <div class={`image-slot relative overflow-hidden ${aspect} ${className}`} data-src={src}>
+    <img
+      src={src}
+      alt={alt ?? label}
+      loading={loading}
+      decoding="async"
+      class={`image-slot__img absolute inset-0 h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"}`}
+      onerror="this.closest('.image-slot').classList.add('image-slot--missing'); this.remove();"
+    />
+    <div
+      class={`image-slot__placeholder absolute inset-0 hidden flex-col items-center justify-center gap-2 border border-dashed text-center ${compact ? "p-1" : "p-4"} ${placeholderTone}`}
+      title={compact ? `${label} — ${size} — ${file}` : undefined}
+    >
+      <Icon name="image" class={compact ? `h-1/2 w-1/2 ${iconTone}` : `h-8 w-8 ${iconTone}`} />
+      {!compact && (
+        <>
+          <p class={`text-xs font-semibold uppercase tracking-wide ${labelTone}`}>{label}</p>
+          <p class={`text-[11px] ${metaTone}`}>{size}</p>
+          <p class={`text-[11px] ${metaTone2}`}>{file}</p>
+        </>
+      )}
+    </div>
+  </div>
+)}
 
 <style>
   .image-slot--missing .image-slot__placeholder {
+    display: flex;
+  }
+  .image-slot-bare--missing .image-slot-bare__placeholder {
     display: flex;
   }
 </style>

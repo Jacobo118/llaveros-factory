@@ -1,0 +1,20 @@
+---
+// Contenedor único para todas las secciones: mismo ancho máximo y
+// padding lateral en toda la web, para que ninguna sección se vea
+// más estrecha que otra.
+// Por defecto va centrado (align="center"). Solo el header y el hero
+// principal usan align="left" para anclarse al borde izquierdo, porque
+// ahí no queremos el hueco simétrico que deja el centrado en monitores
+// muy anchos.
+interface Props {
+  class?: string;
+  align?: "center" | "left";
+}
+
+const { class: className = "", align = "center" } = Astro.props;
+const alignClass = align === "left" ? "" : "mx-auto";
+---
+
+<div class={`${alignClass} w-full max-w-[1760px] px-5 sm:px-8 lg:px-12 ${className}`}>
+  <slot />
+</div>

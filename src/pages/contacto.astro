@@ -1,14 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PageHero from "../components/PageHero.astro";
+import Container from "../components/Container.astro";
 import Icon from "../components/Icon.astro";
 import { CONTACT, SOCIAL, WEBHOOK_URL } from "../config";
 import { TRAMOS_CANTIDAD_CONTACTO } from "../data/precios";
 
 const infoItems = [
-  { icon: "phone", label: CONTACT.phoneDisplay, href: CONTACT.phoneDisplay.startsWith("[PENDIENTE") ? undefined : `tel:${CONTACT.phoneDisplay}` },
-  { icon: "mail", label: CONTACT.email, href: CONTACT.email.startsWith("[PENDIENTE") ? undefined : `mailto:${CONTACT.email}` },
-  { icon: "map-pin", label: CONTACT.address, href: undefined },
+  { icon: "phone", label: CONTACT.phoneDisplay, href: `tel:${CONTACT.phoneDisplay.replace(/\s+/g, "")}` },
+  { icon: "mail", label: CONTACT.email, href: `mailto:${CONTACT.email}` },
+];
+
+const whatsappHref = `https://wa.me/${CONTACT.whatsappNumber}`;
+
+const valores = [
+  { icon: "award", title: "Más de 10 años fabricando", desc: "Fabricación propia, calidad garantizada y un equipo que convierte ideas en productos reales." },
+  { icon: "factory", title: "Fabricación propia", desc: "Controlamos cada fase del proceso, de principio a fin." },
+  { icon: "users", title: "Atención personalizada", desc: "Acompañamos a cada cliente desde la idea hasta el envío." },
+  { icon: "wrench", title: "Soluciones a medida", desc: "Nos adaptamos a proyectos de cualquier tamaño." },
 ];
 ---
 
@@ -17,61 +25,82 @@ const infoItems = [
   description="Pide tu presupuesto de llaveros o imanes de PVC personalizados. Te respondemos con un mockup sin compromiso."
   path="/contacto"
 >
-  <PageHero
-    tag="Contacto"
-    title="PIDE TU"
-    titleBrand="PRESUPUESTO"
-    description="Cuéntanos tu idea y te preparamos una propuesta a medida, sin compromiso."
-    bgFile="contacto-hero-fondo.webp"
-    bgLabel="Fondo de taller para cabecera de contacto"
-  />
+  <section class="bg-ink pt-10 pb-6 sm:pt-14">
+    <Container>
+      <div class="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
+        <p class="label-tag">Contacto</p>
+        <h1 class="text-5xl sm:text-6xl text-white">
+          Pide tu <span class="text-brand">presupuesto</span>
+        </h1>
+        <p class="text-lg text-white/70">
+          Cuéntanos tu idea y te preparamos una propuesta a medida, sin
+          compromiso.
+        </p>
+      </div>
+    </Container>
+  </section>
 
-  <section class="bg-ink">
-    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-5 lg:px-8">
-      <div class="lg:col-span-2 flex flex-col gap-6">
+  <section class="bg-ink pt-4 pb-16">
+    <Container class="grid gap-10 lg:grid-cols-5">
+      <div class="lg:col-span-2 flex flex-col gap-8">
         <div class="flex flex-col gap-4">
           {infoItems.map((item) => (
-            <div class="flex items-start gap-3">
+            <a href={item.href} class="flex items-center gap-3 text-white/80 hover:text-white">
               <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card text-brand">
                 <Icon name={item.icon} class="h-5 w-5" />
               </span>
-              {item.href ? (
-                <a href={item.href} class="mt-2 text-white/80 hover:text-white">{item.label}</a>
-              ) : (
-                <span class="mt-2 text-white/80">{item.label}</span>
-              )}
+              {item.label}
+            </a>
+          ))}
+
+          <div class="flex flex-wrap items-center gap-4">
+            {SOCIAL.instagram && (
+              <a
+                href={SOCIAL.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-card text-white/70 hover:text-brand"
+              >
+                <Icon name="instagram" class="h-5 w-5" />
+              </a>
+            )}
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+            >
+              <Icon name="message-circle" class="h-5 w-5" />
+              Escríbenos por WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-6 border-t border-white/10 pt-8">
+          {valores.map((v) => (
+            <div class="flex items-start gap-4">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand/15 text-brand">
+                <Icon name={v.icon} class="h-5 w-5" />
+              </span>
+              <div>
+                <h3 class="text-lg font-bold text-white">{v.title}</h3>
+                <p class="text-sm text-white/60">{v.desc}</p>
+              </div>
             </div>
           ))}
         </div>
-
-        <div class="flex gap-4 pt-2">
-          {[
-            { name: "instagram", href: SOCIAL.instagram, label: "Instagram" },
-            { name: "linkedin", href: SOCIAL.linkedin, label: "LinkedIn" },
-            { name: "youtube", href: SOCIAL.youtube, label: "YouTube" },
-          ].map((s) =>
-            s.href ? (
-              <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} class="flex h-10 w-10 items-center justify-center rounded-full bg-card text-white/70 hover:text-brand">
-                <Icon name={s.name} class="h-5 w-5" />
-              </a>
-            ) : (
-              <span title={`[PENDIENTE: URL de ${s.label}]`} class="flex h-10 w-10 items-center justify-center rounded-full bg-card text-white/25">
-                <Icon name={s.name} class="h-5 w-5" />
-              </span>
-            )
-          )}
-        </div>
-
-        <a
-          href={CONTACT.whatsappNumber ? `https://wa.me/${CONTACT.whatsappNumber}` : "#"}
-          class="mt-2 inline-flex w-fit items-center gap-3 rounded-xl bg-[#25D366]/10 px-5 py-3 text-sm font-semibold text-[#25D366]"
-        >
-          <Icon name="message-circle" class="h-5 w-5" />
-          Escríbenos por WhatsApp
-        </a>
       </div>
 
       <form id="contact-form" class="lg:col-span-3 flex flex-col gap-5 rounded-2xl border border-card-border bg-card p-6 sm:p-8" novalidate>
+        <!-- Honeypot anti-spam: invisible para personas, los bots suelen rellenarlo -->
+        <div class="hidden" aria-hidden="true">
+          <label>
+            Website
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </label>
+        </div>
+
         <div class="grid gap-5 sm:grid-cols-2">
           <label class="flex flex-col gap-2 text-sm text-white/70">
             Nombre *
@@ -82,8 +111,8 @@ const infoItems = [
             <input required name="email" type="email" class="rounded-lg border border-white/15 bg-ink px-4 py-3 text-white outline-none focus:border-brand" />
           </label>
           <label class="flex flex-col gap-2 text-sm text-white/70">
-            Teléfono *
-            <input required name="telefono" type="tel" class="rounded-lg border border-white/15 bg-ink px-4 py-3 text-white outline-none focus:border-brand" />
+            Teléfono (opcional)
+            <input name="telefono" type="tel" class="rounded-lg border border-white/15 bg-ink px-4 py-3 text-white outline-none focus:border-brand" />
           </label>
           <label class="flex flex-col gap-2 text-sm text-white/70">
             Empresa (opcional)
@@ -113,9 +142,16 @@ const infoItems = [
         </label>
 
         <label class="flex flex-col gap-2 text-sm text-white/70">
-          Subir diseño (imagen o PDF)
-          <input name="diseno" type="file" accept="image/*,application/pdf" class="rounded-lg border border-dashed border-white/20 bg-ink px-4 py-3 text-white/60 file:mr-4 file:rounded-full file:border-0 file:bg-brand file:px-4 file:py-2 file:text-xs file:font-bold file:uppercase file:text-white" />
+          Subir diseño (imagen o PDF, máx. 10 MB)
+          <input
+            id="diseno-input"
+            name="diseno"
+            type="file"
+            accept="image/*,application/pdf"
+            class="rounded-lg border border-dashed border-white/20 bg-ink px-4 py-3 text-white/60 file:mr-4 file:rounded-full file:border-0 file:bg-brand file:px-4 file:py-2 file:text-xs file:font-bold file:uppercase file:text-white"
+          />
         </label>
+        <p id="diseno-error" class="hidden text-sm text-brand"></p>
 
         <button
           type="submit"
@@ -128,25 +164,85 @@ const infoItems = [
 
         <p id="form-status" class="hidden text-sm" role="status" aria-live="polite"></p>
       </form>
-    </div>
+    </Container>
   </section>
 </Layout>
 
-<script define:vars={{ WEBHOOK_URL }}>
+<script define:vars={{ WEBHOOK_URL, whatsappHref }}>
   const form = document.getElementById("contact-form");
   const btn = document.getElementById("submit-btn");
   const label = document.getElementById("submit-label");
   const status = document.getElementById("form-status");
+  const disenoInput = document.getElementById("diseno-input");
+  const disenoError = document.getElementById("diseno-error");
+
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+  const ALLOWED_FILE_RE = /^(image\/.+|application\/pdf)$/;
+
+  function showDisenoError(message) {
+    if (!disenoError) return;
+    disenoError.textContent = message;
+    disenoError.classList.remove("hidden");
+  }
+
+  function clearDisenoError() {
+    if (!disenoError) return;
+    disenoError.textContent = "";
+    disenoError.classList.add("hidden");
+  }
+
+  function validateDiseno() {
+    const file = disenoInput?.files?.[0];
+    if (!file) {
+      clearDisenoError();
+      return true;
+    }
+    if (!ALLOWED_FILE_RE.test(file.type)) {
+      showDisenoError("El archivo debe ser una imagen o un PDF.");
+      return false;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      showDisenoError("El archivo pesa demasiado. El máximo es 10 MB.");
+      return false;
+    }
+    clearDisenoError();
+    return true;
+  }
+
+  disenoInput?.addEventListener("change", validateDiseno);
+
+  function setStatus(html, tone) {
+    if (!status) return;
+    status.innerHTML = html;
+    status.className = `text-sm ${tone}`;
+    status.classList.remove("hidden");
+  }
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (!status || !btn || !label) return;
+    if (!status || !btn || !label || !form) return;
+
+    // Honeypot: si un bot rellenó este campo oculto, no enviamos nada.
+    const honeypot = form.elements.namedItem("website");
+    if (honeypot instanceof HTMLInputElement && honeypot.value) {
+      return;
+    }
+
+    // Valida los campos obligatorios (nombre, email, producto, cantidad)
+    // con la validación nativa del navegador.
+    if (!form.reportValidity()) {
+      return;
+    }
+
+    if (!validateDiseno()) {
+      return;
+    }
 
     if (!WEBHOOK_URL) {
-      status.textContent =
-        "El formulario aún no está conectado a un webhook. [PENDIENTE: URL del webhook en src/config.ts]";
-      status.className = "text-sm text-brand";
-      status.classList.remove("hidden");
+      setStatus(
+        "El formulario aún no está conectado a un webhook. [PENDIENTE: URL del webhook en src/config.ts]",
+        "text-brand",
+      );
       return;
     }
 
@@ -157,18 +253,30 @@ const infoItems = [
     try {
       const formData = new FormData(form);
       const res = await fetch(WEBHOOK_URL, { method: "POST", body: formData });
-      if (!res.ok) throw new Error("request-failed");
+
+      let data = null;
+      try {
+        data = await res.json();
+      } catch (parseErr) {
+        data = null;
+      }
+
+      if (res.status !== 200 || !data || data.ok !== true) {
+        throw new Error("request-failed");
+      }
 
       label.textContent = "Enviado ✓";
-      status.textContent = "Gracias, hemos recibido tu solicitud. Te responderemos muy pronto.";
-      status.className = "text-sm text-green-400";
-      status.classList.remove("hidden");
+      setStatus(
+        "Gracias, hemos recibido tu solicitud. Te responderemos muy pronto.",
+        "text-green-400",
+      );
       form.reset();
     } catch (err) {
       label.textContent = "Enviar solicitud";
-      status.textContent = "No se pudo enviar el formulario. Inténtalo de nuevo o escríbenos por WhatsApp.";
-      status.className = "text-sm text-brand";
-      status.classList.remove("hidden");
+      setStatus(
+        `No se pudo enviar el formulario. Inténtalo de nuevo o <a href="${whatsappHref}" target="_blank" rel="noopener noreferrer" class="underline font-semibold">escríbenos por WhatsApp</a>.`,
+        "text-brand",
+      );
     } finally {
       btn.removeAttribute("disabled");
     }

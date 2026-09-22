@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PageHero from "../components/PageHero.astro";
+import Container from "../components/Container.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import Icon from "../components/Icon.astro";
 import ImageSlot from "../components/ImageSlot.astro";
@@ -14,7 +14,21 @@ const ventajas = [
   { icon: "palette", title: "Colores Pantone", desc: "Ajustamos los colores a tu identidad de marca." },
 ];
 
-const usos = ["Marcas y negocios", "Eventos", "Empresas", "Promociones"];
+const usos = [
+  { icon: "briefcase", title: "Marcas y negocios", desc: "Refuerza tu identidad en cada entrega a clientes." },
+  { icon: "calendar-days", title: "Eventos", desc: "Un recuerdo con tu marca que la gente se lleva a casa." },
+  { icon: "building-2", title: "Empresas", desc: "Detalles de marca para equipo, clientes y proveedores." },
+  { icon: "megaphone", title: "Promociones", desc: "Un soporte publicitario que se queda en la nevera." },
+];
+
+const imanesGaleria = [
+  "imanes-galeria-01.png",
+  "imanes-galeria-02.png",
+  "imanes-galeria-03.png",
+  "imanes-galeria-04.png",
+  "imanes-galeria-05.jpg",
+  "imanes-galeria-06.png",
+];
 ---
 
 <Layout
@@ -22,84 +36,111 @@ const usos = ["Marcas y negocios", "Eventos", "Empresas", "Promociones"];
   description="Imanes de PVC personalizados para marcas, eventos, empresas y promociones. Fabricación propia y gran nivel de detalle."
   path="/imanes"
 >
-  <PageHero
-    tag="Imanes de PVC"
-    title="IMANES"
-    titleBrand="PERSONALIZADOS"
-    description="Imanes personalizados para marcas, eventos, empresas y promociones."
-    bgFile="imanes-hero-fondo.webp"
-    bgLabel="Fondo de taller para cabecera de imanes"
-  />
+  <section class="bg-ink pt-10 pb-8 sm:pt-14">
+    <Container class="grid gap-10 lg:grid-cols-2 lg:items-center">
+      <div class="fade-in flex flex-col gap-6">
+        <p class="label-tag text-base sm:text-lg">Imanes de PVC</p>
+        <h1 class="text-6xl sm:text-7xl text-white">
+          Imanes <span class="text-brand">personalizados</span>
+        </h1>
+        <p class="max-w-lg text-xl text-white/70">
+          Imanes personalizados para marcas, eventos, empresas y promociones.
+        </p>
+      </div>
+      <ImageSlot
+        src="/img/imanes-intro.png"
+        label="Imán de PVC personalizado"
+        file="imanes-intro.png"
+        size="577x433px (fondo transparente)"
+        aspect="aspect-[4/3]"
+        bare
+      />
+    </Container>
+  </section>
 
-  <section class="bg-ink">
-    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
+  <section class="bg-ink pb-14">
+    <Container class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {ventajas.map((v) => (
-        <div class="fade-in flex flex-col gap-3 rounded-2xl border border-card-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:border-brand">
+        <div class="fade-in flex flex-col gap-3 rounded-2xl border-2 border-brand bg-card p-6 transition-all duration-200 hover:-translate-y-1">
           <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
             <Icon name={v.icon} class="h-5 w-5" />
           </span>
-          <h3 class="text-lg text-white normal-case tracking-normal">{v.title}</h3>
+          <h3 class="text-lg font-bold text-white">{v.title}</h3>
           <p class="text-sm text-white/60">{v.desc}</p>
         </div>
       ))}
-    </div>
+    </Container>
   </section>
 
-  <section class="bg-card/40 border-y border-white/5">
-    <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <p class="label-tag mb-4">Dónde se usan</p>
-      <div class="flex flex-wrap gap-3">
+  <section class="bg-light py-14">
+    <Container>
+      <SectionTitle
+        tag="Dónde se usan"
+        titleParts={[{ text: "Ideas para" }, { text: "cada ocasión", brand: true }]}
+        light
+        align="center"
+        class="mx-auto mb-10 max-w-xl text-center [&>h2]:mx-auto"
+      />
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {usos.map((u) => (
-          <span class="rounded-full border border-white/15 px-4 py-2 text-sm text-white/80">{u}</span>
+          <div class="fade-in flex flex-col items-center gap-3 rounded-2xl border-2 border-brand bg-card p-8 text-center transition-all duration-200 hover:-translate-y-1">
+            <span class="flex h-16 w-16 items-center justify-center rounded-full bg-brand/15 text-brand">
+              <Icon name={u.icon} class="h-8 w-8" />
+            </span>
+            <h3 class="text-lg font-bold text-white">{u.title}</h3>
+            <p class="text-sm text-white/60">{u.desc}</p>
+          </div>
         ))}
       </div>
-    </div>
+    </Container>
   </section>
 
-  <section class="bg-ink">
-    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <section class="bg-ink py-14">
+    <Container>
       <SectionTitle
         tag="Galería"
         titleParts={[{ text: "Imanes que" }, { text: "hemos fabricado", brand: true }]}
         class="mb-8"
       />
-      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-        {Array.from({ length: 6 }).map((_, i) => {
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {imanesGaleria.map((file, i) => {
           const n = String(i + 1).padStart(2, "0");
           return (
             <ImageSlot
-              src={`/img/imanes-galeria-${n}.webp`}
+              src={`/img/${file}`}
               label={`Imán de ejemplo ${n}`}
-              file={`imanes-galeria-${n}.webp`}
-              size="600x600px"
+              file={file}
+              size="800x800px"
               aspect="aspect-square"
-              class="rounded-xl"
+              class="rounded-xl border-2 border-brand"
             />
           );
         })}
       </div>
-    </div>
+    </Container>
   </section>
 
-  <section class="bg-light">
-    <div class="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6 lg:px-8">
-      <SectionTitle
-        tag="Precio directo de fábrica"
-        titleParts={[{ text: "Precio de" }, { text: "tus imanes", brand: true }]}
-        light
-        align="center"
-        class="mx-auto mb-6 [&>h2]:mx-auto"
-      />
-      <p class="mb-8 text-black/60">
-        El precio de los imanes varía según tamaño y acabado. Cuéntanos tu
-        proyecto y te preparamos un presupuesto ajustado.
-      </p>
-      <div class="mx-auto w-fit rounded-2xl bg-light-card px-10 py-8 shadow-xl shadow-black/5">
-        <p class="font-display text-3xl text-brand">Consúltanos</p>
-        <p class="mt-2 text-sm text-black/50">Presupuesto a medida, sin compromiso.</p>
+  <section class="bg-light py-14">
+    <Container class="text-center">
+      <div class="mx-auto max-w-2xl">
+        <SectionTitle
+          tag="Precio directo de fábrica"
+          titleParts={[{ text: "Precio de" }, { text: "tus imanes", brand: true }]}
+          light
+          align="center"
+          class="mx-auto mb-6 [&>h2]:mx-auto"
+        />
+        <p class="mb-8 text-black/60">
+          El precio de los imanes varía según tamaño y acabado. Cuéntanos tu
+          proyecto y te preparamos un presupuesto ajustado.
+        </p>
+        <div class="mx-auto w-fit rounded-2xl bg-light-card px-10 py-8 shadow-xl shadow-black/5">
+          <p class="heading-condensed text-3xl text-brand">Consúltanos</p>
+          <p class="mt-2 text-sm text-black/50">Presupuesto a medida, sin compromiso.</p>
+        </div>
+        <Button href="/contacto" class="mt-8">Pedir presupuesto</Button>
       </div>
-      <Button href="/contacto" class="mt-8">Pedir presupuesto</Button>
-    </div>
+    </Container>
   </section>
 
   <CTABanner

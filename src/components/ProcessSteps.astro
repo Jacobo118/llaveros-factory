@@ -15,20 +15,20 @@ interface Props {
 const { steps } = Astro.props;
 ---
 
-<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
   {steps.map((step, i) => (
     <div class="relative">
-      <div class="fade-in flex h-full flex-col gap-3 rounded-2xl border border-black/10 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-brand hover:shadow-md">
-        <span class="font-display text-3xl text-black/15">{step.number}</span>
-        <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand/10 text-brand">
-          <Icon name={step.icon} class="h-5 w-5" />
-        </span>
-        <h3 class="font-display text-lg text-ink normal-case tracking-normal">{step.title}</h3>
+      <div class="fade-in flex h-full flex-col gap-4 rounded-2xl bg-light-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg sm:p-7">
+        <div class="flex items-center gap-3">
+          <span class="font-display text-4xl font-bold text-brand sm:text-5xl">{step.number}</span>
+          <Icon name={step.icon} class="h-9 w-9 text-brand" />
+        </div>
+        <h3 class="text-lg font-bold text-ink">{step.title}</h3>
         <p class="text-sm text-black/60">{step.description}</p>
       </div>
       {i < steps.length - 1 && (
         <span class="pointer-events-none absolute top-1/2 -right-4 z-10 hidden -translate-y-1/2 text-brand lg:block" aria-hidden="true">
-          <Icon name="chevron-right" class="h-6 w-6" />
+          <Icon name="chevron-right" class="h-7 w-7" />
         </span>
       )}
     </div>

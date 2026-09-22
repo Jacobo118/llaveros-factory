@@ -17,10 +17,10 @@ export const PRECIOS_LLAVEROS: Tramo[] = [
 export const PRECIOS_NOTA = "Para más cantidad, pregúntanos sin problema.";
 
 export const TRAMOS_CANTIDAD_CONTACTO = [
-  "200 uds",
-  "500 uds",
-  "1.000 uds",
-  "2.000 uds",
-  "3.000 uds",
+  "100 - 200 uds",
+  "200 - 500 uds",
+  "500 - 1.000 uds",
+  "1.000 - 2.000 uds",
+  "2.000 - 3.000 uds",
   "Más de 3.000 uds",
 ];

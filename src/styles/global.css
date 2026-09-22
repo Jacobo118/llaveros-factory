@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
   --font-hand: "Kaushan Script", cursive;
 
@@ -26,14 +26,16 @@
     font-family: var(--font-sans);
   }
 
+  /* La fuente condensada se reserva para titulares grandes (h1/h2) y para
+     quien la pida explícitamente con .font-display. El resto del texto,
+     incluidos h3/h4 por defecto, usa Inter. */
   h1,
-  h2,
-  h3,
-  h4 {
+  h2 {
     font-family: var(--font-display);
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.01em;
-    line-height: 0.95;
+    line-height: 0.92;
   }
 
   :focus-visible {
@@ -45,6 +47,14 @@
 @layer components {
   .label-tag {
     @apply text-brand text-xs sm:text-sm font-bold tracking-widest uppercase;
+  }
+
+  .heading-condensed {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
   }
 
   .fade-in {

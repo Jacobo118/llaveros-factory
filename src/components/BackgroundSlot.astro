@@ -1,0 +1,80 @@
+---
+// Sección con imagen de fondo a pantalla completa (cover) + degradado
+// oscuro para que el texto se lea encima. El producto (llavero, persona,
+// etc.) vive DENTRO de la propia foto, generada con IA — no se superponen
+// placeholders sueltos.
+// Si la imagen aún no existe, se ve el mismo fondo + degradado, con solo
+// una etiqueta discreta en la esquina indicando qué archivo falta.
+interface Props {
+  src: string;
+  file: string;
+  size: string;
+  tone?: "dark" | "brand";
+  gradient?: "left" | "left-strong" | "left-soft" | "full";
+  class?: string;
+  imgClass?: string; // clases extra para la <img> (encuadre, rotación, escala)
+  fit?: "cover" | "contain"; // "contain" evita recortar la imagen (se ve entera)
+}
+
+const {
+  src,
+  file,
+  size,
+  tone = "dark",
+  gradient = "left",
+  class: className = "",
+  imgClass = "",
+  fit = "cover",
+} = Astro.props;
+
+const baseBg = tone === "brand" ? "bg-brand-dark" : "bg-ink";
+
+const gradients: Record<string, string> = {
+  left:
+    tone === "brand"
+      ? "bg-gradient-to-r from-brand-dark via-brand-dark/85 to-brand-dark/40"
+      : "bg-gradient-to-r from-ink via-ink/85 to-ink/40",
+  "left-strong":
+    tone === "brand"
+      ? "bg-gradient-to-r from-brand-dark via-brand-dark/90 to-brand-dark/55"
+      : "bg-gradient-to-r from-ink via-ink/90 to-ink/55",
+  // Degradado suave: solo oscurece la franja izquierda (para el texto) y
+  // deja el resto de la imagen a color completo, sin difuminar el producto.
+  "left-soft":
+    tone === "brand"
+      ? "bg-gradient-to-r from-brand-dark from-0% via-brand-dark/55 via-35% to-transparent to-58%"
+      : "bg-gradient-to-r from-ink from-0% via-ink/60 via-35% to-transparent to-58%",
+  full:
+    tone === "brand"
+      ? "bg-gradient-to-b from-brand-dark/20 via-brand-dark/60 to-brand-dark/90"
+      : "bg-gradient-to-b from-ink/20 via-ink/60 to-ink/90",
+};
+---
+
+<div class={`bg-slot relative isolate overflow-hidden ${baseBg} ${className}`} data-src={src}>
+  <img
+    src={src}
+    alt=""
+    loading="lazy"
+    decoding="async"
+    class={`bg-slot__img absolute inset-0 -z-10 h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"} ${imgClass}`}
+    onerror="this.closest('.bg-slot').classList.add('bg-slot--missing'); this.remove();"
+  />
+  <div class={`absolute inset-0 -z-10 ${gradients[gradient]}`}></div>
+
+  <span
+    class="bg-slot__label pointer-events-none absolute bottom-3 right-3 z-20 hidden rounded bg-black/55 px-2 py-1 text-[10px] font-medium tracking-wide text-white/60"
+  >
+    {file} · {size}
+  </span>
+
+  <div class="relative z-10 h-full w-full">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .bg-slot--missing .bg-slot__label {
+    display: block;
+  }
+</style>

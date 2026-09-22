@@ -1,10 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Container from "../components/Container.astro";
 import Button from "../components/Button.astro";
 import Icon from "../components/Icon.astro";
 import ImageSlot from "../components/ImageSlot.astro";
+import BackgroundSlot from "../components/BackgroundSlot.astro";
 import SectionTitle from "../components/SectionTitle.astro";
-import HandwrittenText from "../components/HandwrittenText.astro";
 import PriceTable from "../components/PriceTable.astro";
 import ProcessSteps from "../components/ProcessSteps.astro";
 import CTABanner from "../components/CTABanner.astro";
@@ -13,7 +14,7 @@ import type { Step } from "../components/ProcessSteps.astro";
 
 const heroFeatures = [
   { icon: "factory", label: "Fabricación propia" },
-  { icon: "clock", label: "+10 años de experiencia" },
+  { icon: "clock", label: "10 años de experiencia" },
   { icon: "gem", label: "Calidad garantizada" },
   { icon: "handshake", label: "Envío incluido" },
 ];
@@ -22,26 +23,26 @@ const steps: Step[] = [
   {
     number: "01",
     icon: "message-circle",
-    title: "Mándanos tu diseño",
-    description: "Nos envías tu logo o nos explicas tu idea.",
+    title: "Cuéntanos tu idea",
+    description: "Envíanos tu diseño o explícanos lo que tienes en mente.",
   },
   {
     number: "02",
-    icon: "pencil",
-    title: "Te enviamos el mockup",
-    description: "Lo revisas y lo apruebas antes de fabricar.",
+    icon: "pencil-line",
+    title: "Te enviamos un mockup",
+    description: "Nuestro equipo diseña tu propuesta y te la enviamos para que la revises.",
   },
   {
     number: "03",
-    icon: "cog",
-    title: "Fabricamos tu pedido",
-    description: "Producción en 25-30 días. Te enviamos fotos y vídeos del pedido terminado.",
+    icon: "circle-check-big",
+    title: "Apruebas el diseño",
+    description: "Una vez confirmes el mockup, pasamos a producción.",
   },
   {
     number: "04",
-    icon: "truck",
-    title: "Te lo enviamos",
-    description: "Envío incluido, directo a tu puerta.",
+    icon: "trending-up",
+    title: "Fabricamos tu pedido",
+    description: "Tiempo de producción: 25-30 días.",
   },
 ];
 
@@ -49,6 +50,16 @@ const fabricaFeatures = [
   { icon: "settings", label: "Control total de producción" },
   { icon: "heart-handshake", label: "Atención personalizada" },
   { icon: "wrench", label: "Soluciones a medida" },
+];
+
+// Huecos 1, 3 y 5 ya tienen foto real; el resto sigue pendiente (placeholder).
+const galleryImages = [
+  "galeria-01.png",
+  "galeria-02.png",
+  "galeria-03.png",
+  "galeria-04.png",
+  "galeria-05.png",
+  "galeria-06.png",
 ];
 ---
 
@@ -58,226 +69,228 @@ const fabricaFeatures = [
   path="/"
 >
   <!-- 1. HERO -->
-  <section class="relative overflow-hidden bg-ink">
-    <ImageSlot
-      src="/img/hero-fondo-taller.webp"
-      label="Fondo de taller (oscurecido)"
-      file="hero-fondo-taller.webp"
-      size="1920x1080px"
-      aspect="aspect-auto"
-      class="absolute inset-0 h-full w-full"
-      loading="eager"
-    />
-    <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/50"></div>
+  <section>
+    <BackgroundSlot
+      src="/img/banner.png"
+      file="banner.png"
+      size="1920x1000px"
+      tone="dark"
+      gradient="left-soft"
+      class="flex min-h-[85vh] items-center"
+    >
+      <Container align="left" class="relative flex h-full w-full items-center py-14">
+        <div class="flex max-w-4xl flex-col items-start gap-7 lg:ml-[151px] xl:ml-[199px]">
+          <p class="label-tag text-lg sm:text-xl">Tu marca siempre contigo</p>
+          <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-white">
+            Llaveros e<br />
+            imanes de PVC<br />
+            <span class="text-brand">Personalizados</span>
+          </h1>
+          <p class="text-2xl font-semibold text-white/80">Fabricación propia · Más de 10 años de experiencia</p>
+          <p class="max-w-xl text-xl text-white/70">
+            Convertimos tus ideas en llaveros e imanes de PVC personalizados, con la
+            máxima calidad y un servicio directo de fábrica.
+          </p>
+          <div class="flex flex-wrap gap-5">
+            <Button href="/contacto" class="!px-8 !py-4 !text-lg" iconClass="h-5 w-5">Pedir presupuesto</Button>
+          </div>
 
-    <div class="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-24 lg:px-8">
-      <div class="flex flex-col items-start gap-6">
-        <p class="label-tag">Tu marca siempre contigo</p>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl text-white">
-          Llaveros e<br />
-          imanes de PVC<br />
-          <span class="text-brand">Personalizados</span>
-        </h1>
-        <p class="font-semibold text-white/80">Fabricación propia · 10 años de experiencia</p>
-        <p class="max-w-md text-white/60">
-          Convertimos tus ideas en llaveros e imanes de PVC personalizados, con la
-          máxima calidad y un servicio directo de fábrica.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <Button href="/contacto">Pedir presupuesto</Button>
-          <Button href="/llaveros" variant="outline" arrow={false}>Ver productos</Button>
+          <div class="mt-4 grid grid-cols-2 gap-x-10 gap-y-5 sm:grid-cols-4">
+            {heroFeatures.map((f) => (
+              <div class="flex items-center gap-3">
+                <Icon name={f.icon} class="h-7 w-7 shrink-0 text-brand" />
+                <span class="text-base font-semibold uppercase tracking-wide text-white/70">{f.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div class="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
-          {heroFeatures.map((f) => (
-            <div class="flex items-center gap-2">
-              <Icon name={f.icon} class="h-5 w-5 shrink-0 text-brand" />
-              <span class="text-xs font-semibold uppercase tracking-wide text-white/70">{f.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div class="relative flex items-center justify-center py-8 lg:py-0">
-        <ImageSlot
-          src="/img/hero-llavero-logo.webp"
-          label="Llavero grande con logo Llaveros Factory"
-          file="hero-llavero-logo.webp"
-          size="900x900px"
-          aspect="aspect-square"
-          class="w-64 rounded-full sm:w-80 lg:w-96 drop-shadow-2xl"
-          loading="eager"
-        />
-        <HandwrittenText text="Más que llaveros" class="absolute -bottom-2 right-0 sm:-bottom-4" />
-      </div>
-    </div>
+      </Container>
+    </BackgroundSlot>
   </section>
 
   <!-- 2. DOS TARJETAS -->
-  <section class="bg-ink">
-    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:px-6 md:grid-cols-2 lg:px-8">
-      <div class="group overflow-hidden rounded-2xl border border-card-border bg-card transition-all duration-200 hover:border-brand hover:-translate-y-1">
-        <div class="grid gap-6 sm:grid-cols-2 sm:items-center">
-          <div class="flex flex-col gap-4 p-8">
-            <h2 class="text-2xl text-white">Llaveros<br />de PVC</h2>
-            <p class="text-sm text-white/60">
+  <section class="bg-ink py-6 sm:py-8">
+    <Container class="grid gap-5 md:grid-cols-2">
+      <a href="/llaveros" class="group block">
+        <BackgroundSlot
+          src="/img/card-llaveros.png"
+          file="card-llaveros.png"
+          size="900x500px"
+          tone="dark"
+          gradient="left-soft"
+          imgClass="object-[75%_center] scale-110 rotate-2"
+          class="min-h-[280px] rounded-2xl transition-all duration-200 group-hover:brightness-110 sm:min-h-[320px]"
+        >
+          <div class="flex h-full flex-col justify-center gap-3 px-7 py-8 sm:px-9">
+            <h2 class="heading-condensed text-3xl text-white sm:text-4xl">Llaveros<br />de PVC</h2>
+            <p class="max-w-xs text-sm text-white/70">
               Diseños 100% personalizados, resistentes, con gran nivel de detalle y
               todo tipo de formas.
             </p>
-            <a href="/llaveros" class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-brand">
-              <Icon name="arrow-right" class="h-4 w-4" /> Ver llaveros
-            </a>
+            <span class="mt-2 inline-flex items-center gap-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-white transition-transform group-hover:translate-x-1">
+                <Icon name="arrow-right" class="h-4 w-4" />
+              </span>
+              <span class="text-sm font-bold uppercase tracking-wide text-white">Ver llaveros</span>
+            </span>
           </div>
-          <ImageSlot
-            src="/img/card-llaveros.webp"
-            label="Llavero de zapatilla, diseño genérico sin marca"
-            file="card-llaveros.webp"
-            size="800x800px"
-            aspect="aspect-square"
-            class="sm:h-full"
-          />
-        </div>
-      </div>
+        </BackgroundSlot>
+      </a>
 
-      <div class="group overflow-hidden rounded-2xl border border-card-border bg-card transition-all duration-200 hover:border-brand hover:-translate-y-1">
-        <div class="grid gap-6 sm:grid-cols-2 sm:items-center">
-          <div class="flex flex-col gap-4 p-8">
-            <h2 class="text-2xl text-white">Imanes<br />de PVC</h2>
-            <p class="text-sm text-white/60">
+      <a href="/imanes" class="group block">
+        <BackgroundSlot
+          src="/img/card-imanes.png"
+          file="card-imanes.png"
+          size="900x500px"
+          tone="dark"
+          gradient="left-soft"
+          imgClass="object-[75%_center] scale-110 rotate-2"
+          class="min-h-[280px] rounded-2xl transition-all duration-200 group-hover:brightness-110 sm:min-h-[320px]"
+        >
+          <div class="flex h-full flex-col justify-center gap-3 px-7 py-8 sm:px-9">
+            <h2 class="heading-condensed text-3xl text-white sm:text-4xl">Imanes<br />de PVC</h2>
+            <p class="max-w-xs text-sm text-white/70">
               Imanes personalizados para marcas, eventos, empresas y promociones.
             </p>
-            <a href="/imanes" class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-brand">
-              <Icon name="arrow-right" class="h-4 w-4" /> Ver imanes
-            </a>
+            <span class="mt-2 inline-flex items-center gap-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-white transition-transform group-hover:translate-x-1">
+                <Icon name="arrow-right" class="h-4 w-4" />
+              </span>
+              <span class="text-sm font-bold uppercase tracking-wide text-white">Ver imanes</span>
+            </span>
           </div>
-          <ImageSlot
-            src="/img/card-imanes.webp"
-            label="Imán de PVC personalizado, diseño genérico"
-            file="card-imanes.webp"
-            size="800x800px"
-            aspect="aspect-square"
-            class="sm:h-full"
-          />
-        </div>
-      </div>
-    </div>
+        </BackgroundSlot>
+      </a>
+    </Container>
   </section>
 
   <!-- 3. PRECIOS -->
-  <section class="bg-light">
-    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
-      <div class="fade-in flex flex-col gap-6">
-        <SectionTitle
-          tag="Precio directo de fábrica"
-          titleParts={[{ text: "Tus llaveros" }, { text: "al" }, { text: "mejor precio", brand: true }]}
-          light
-        />
-        <ul class="flex flex-col gap-3">
-          {["Personalizados con tu logo", "Moldes GRATIS", "Envío incluido 📦"].map((item) => (
-            <li class="flex items-center gap-3 text-ink">
-              <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-white">
-                <Icon name="check" class="h-4 w-4" />
-              </span>
-              <span class="font-semibold">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+  <section class="bg-light py-12 lg:py-16">
+    <Container>
+      <div class="grid gap-8 lg:grid-cols-5 lg:items-center">
+        <div class="fade-in flex flex-col gap-7 lg:col-span-2 lg:ml-6 xl:ml-10">
+          <SectionTitle
+            tag="Precio directo de fábrica"
+            titleParts={[
+              { text: "Tus llaveros" },
+              { text: "al", break: true },
+              { text: "mejor precio", brand: true },
+            ]}
+            light
+            large
+          />
+          <ul class="flex flex-col gap-5">
+            {["Personalizados con tu logo", "Moldes GRATIS", "Envío incluido 📦"].map((item) => (
+              <li class="flex items-center gap-4 text-ink">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                  <Icon name="check" class="h-5 w-5" />
+                </span>
+                <span class="text-xl font-semibold sm:text-2xl">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div class="fade-in rounded-2xl bg-light-card p-6 shadow-xl shadow-black/5 sm:p-8">
-        <ImageSlot
-          src="/img/precios-llavero.webp"
-          label="Llavero destacado para tabla de precios"
-          file="precios-llavero.webp"
-          size="700x500px"
-          aspect="aspect-[7/5]"
-          light
-          class="mb-6 rounded-xl"
-        />
-        <h3 class="mb-4 font-display text-xl text-ink">Precios por cantidad</h3>
-        <PriceTable tramos={PRECIOS_LLAVEROS} nota={PRECIOS_NOTA} />
+        <div class="fade-in rounded-3xl bg-light-card p-6 shadow-xl shadow-black/5 sm:p-8 lg:col-span-3">
+          <div class="grid gap-6 sm:grid-cols-2 sm:items-center">
+            <ImageSlot
+              src="/img/precios-llavero.png"
+              label="Llavero destacado para tabla de precios"
+              file="precios-llavero.png"
+              size="700x700px (fondo transparente)"
+              aspect="aspect-square"
+              light
+              bare
+            />
+            <div>
+              <h3 class="heading-condensed mb-4 text-2xl text-brand">Precios por cantidad</h3>
+              <PriceTable tramos={PRECIOS_LLAVEROS} nota={PRECIOS_NOTA} />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </Container>
   </section>
 
   <!-- 4. PROCESO -->
-  <section class="bg-light">
-    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <section class="bg-light pb-12 lg:pb-16">
+    <Container>
       <SectionTitle
         tag="Un proceso sencillo"
         titleParts={[{ text: "De tu idea al" }, { text: "producto final" }]}
         light
-        align="center"
-        class="mx-auto mb-12 max-w-2xl text-center [&>h2]:mx-auto"
+        class="mb-10"
       />
       <ProcessSteps steps={steps} />
-      <div class="mt-10 text-center">
+      <div class="mt-8">
         <a href="/como-trabajamos" class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-brand hover:underline">
           Ver el proceso completo <Icon name="arrow-right" class="h-4 w-4" />
         </a>
       </div>
-    </div>
+    </Container>
   </section>
 
   <!-- 5. FILA DOBLE: PAGO + DISEÑO -->
-  <section class="bg-ink">
-    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:px-6 md:grid-cols-2 lg:px-8">
-      <div class="fade-in rounded-2xl border border-card-border bg-card p-8">
-        <div class="mb-4 flex items-center gap-3">
-          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
-            <Icon name="credit-card" class="h-5 w-5" />
-          </span>
-          <h3 class="text-lg text-white">Método de pago</h3>
-        </div>
-        <ul class="flex flex-col gap-4 text-sm text-white/70">
-          <li class="flex gap-3">
-            <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-            <span>
-              Pago en 2 partes: <strong class="text-white">50% al aprobar el mockup</strong> para
-              iniciar la producción.
-            </span>
-          </li>
-          <li class="flex gap-3">
-            <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-            <span>50% al finalizar, después de recibir fotos y vídeos de tu pedido.</span>
-          </li>
-        </ul>
-        <p class="mt-5 rounded-lg bg-brand/10 px-4 py-3 text-sm font-semibold text-brand">
-          Compruebas el resultado antes del pago final.
-        </p>
-      </div>
-
-      <div class="fade-in relative overflow-hidden rounded-2xl bg-brand-dark p-8">
-        <div class="relative z-10 flex flex-col gap-4">
-          <h3 class="text-2xl text-white">Tu diseño,<br />en buenas manos</h3>
-          <p class="max-w-xs text-sm text-white/85">
-            Desde pequeñas ideas hasta grandes proyectos. Creamos llaveros e
-            imanes que dejan huella.
+  <section class="bg-light pb-12 lg:pb-16">
+    <Container>
+      <div class="grid gap-5 lg:grid-cols-5">
+        <div class="fade-in flex flex-col justify-center gap-3 rounded-2xl bg-light-card p-6 sm:p-7 lg:col-span-2">
+          <div class="flex items-center gap-3">
+            <Icon name="credit-card" class="h-6 w-6 text-brand" />
+            <h3 class="text-base font-bold uppercase tracking-wide text-ink">Método de pago</h3>
+          </div>
+          <ul class="flex flex-col gap-2.5 text-sm text-black/70">
+            <li class="flex gap-3">
+              <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+              <span>
+                Pago en 2 partes: <strong class="text-ink">50% al aprobar el mockup</strong> para
+                iniciar la producción.
+              </span>
+            </li>
+            <li class="flex gap-3">
+              <Icon name="check" class="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+              <span>50% al finalizar, después de recibir fotos y vídeos de tu pedido.</span>
+            </li>
+          </ul>
+          <p class="rounded-lg bg-brand/10 px-4 py-2.5 text-sm font-semibold text-brand">
+            Compruebas el resultado antes del pago final.
           </p>
-          <Button href="/contacto" variant="outline" class="w-fit">Pedir presupuesto</Button>
         </div>
-        <ImageSlot
-          src="/img/cta-tu-logo.webp"
-          label='Llavero de muestra "Tu logo aquí"'
-          file="cta-tu-logo.webp"
-          size="500x500px"
-          aspect="aspect-square"
-          class="absolute -bottom-8 -right-8 w-48 opacity-90 sm:w-56"
-        />
+
+        <div class="fade-in lg:col-span-3">
+          <BackgroundSlot
+            src="/img/tu-diseno.png"
+            file="tu-diseno.png"
+            size="2048x768px"
+            tone="brand"
+            gradient="left-soft"
+            imgClass="object-[15%_center] sm:object-[78%_center]"
+            class="h-full min-h-[260px] rounded-2xl sm:min-h-[220px]"
+          >
+            <div class="flex h-full flex-col justify-center gap-3 px-7 py-6 sm:px-9">
+              <h2 class="heading-condensed text-2xl text-white sm:text-3xl">Tu diseño,<br />en buenas manos</h2>
+              <p class="max-w-xs text-sm text-white/85">
+                Desde pequeñas ideas hasta grandes proyectos. Creamos llaveros e
+                imanes que dejan huella.
+              </p>
+              <Button href="/contacto" class="w-fit">Pedir presupuesto</Button>
+            </div>
+          </BackgroundSlot>
+        </div>
       </div>
-    </div>
+    </Container>
   </section>
 
   <!-- 6. GALERÍA -->
   <section class="bg-ink">
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
-      {Array.from({ length: 6 }).map((_, i) => {
+    <div class="grid grid-cols-2 gap-[2px] bg-black sm:grid-cols-3 lg:grid-cols-6">
+      {galleryImages.map((img, i) => {
         const n = String(i + 1).padStart(2, "0");
         return (
           <ImageSlot
-            src={`/img/galeria-${n}.webp`}
+            src={`/img/${img}`}
             label={`Galería de producto ${n}`}
-            file={`galeria-${n}.webp`}
+            file={img}
             size="600x600px"
             aspect="aspect-square"
           />
@@ -287,49 +300,36 @@ const fabricaFeatures = [
   </section>
 
   <!-- 7. FÁBRICA -->
-  <section class="relative overflow-hidden bg-ink">
-    <ImageSlot
-      src="/img/fabrica-fondo.webp"
-      label="Fondo de fábrica (oscurecido)"
-      file="fabrica-fondo.webp"
-      size="1920x1080px"
-      aspect="aspect-auto"
-      class="absolute inset-0 h-full w-full"
-    />
-    <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40"></div>
-
-    <div class="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:py-24 lg:px-8">
-      <div class="fade-in flex flex-col gap-5">
-        <h2 class="text-3xl sm:text-4xl text-white">
-          Somos fabricantes desde hace <span class="text-brand">más de 10 años</span>
-        </h2>
-        <p class="max-w-md text-white/70">
-          Contamos con fabricación propia, lo que nos permite controlar cada
-          detalle del proceso, garantizar la calidad y adaptarnos a las
-          necesidades de cada cliente.
-        </p>
-        <div class="mt-4 flex flex-wrap gap-x-8 gap-y-4">
-          {fabricaFeatures.map((f) => (
-            <div class="flex items-center gap-2">
-              <Icon name={f.icon} class="h-5 w-5 shrink-0 text-brand" />
-              <span class="text-xs font-semibold uppercase tracking-wide text-white/70">{f.label}</span>
-            </div>
-          ))}
+  <section>
+    <BackgroundSlot
+      src="/img/fabrica-fondo.jpg"
+      file="fabrica-fondo.jpg"
+      size="1920x700px"
+      tone="dark"
+      gradient="left-soft"
+      class="min-h-[70vh] sm:min-h-[560px]"
+    >
+      <Container class="relative flex h-full min-h-[70vh] flex-col items-start py-14 sm:min-h-[560px] sm:flex-row sm:items-center">
+        <div class="fade-in flex max-w-xl flex-col gap-6">
+          <h2 class="text-4xl sm:text-5xl text-white">
+            Somos fabricantes desde hace <span class="text-brand">más de 10 años</span>
+          </h2>
+          <p class="max-w-lg text-xl text-white/70">
+            Contamos con fabricación propia, lo que nos permite controlar cada
+            detalle del proceso, garantizar la calidad y adaptarnos a las
+            necesidades de cada cliente.
+          </p>
+          <div class="mt-2 flex flex-wrap gap-x-10 gap-y-5">
+            {fabricaFeatures.map((f) => (
+              <div class="flex items-center gap-3">
+                <Icon name={f.icon} class="h-7 w-7 shrink-0 text-brand" />
+                <span class="text-base font-semibold uppercase tracking-wide text-white/70">{f.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div class="relative flex justify-center lg:justify-end">
-        <ImageSlot
-          src="/img/fabrica-persona.webp"
-          label="Persona de espaldas con camiseta Llaveros Factory"
-          file="fabrica-persona.webp"
-          size="900x1100px"
-          aspect="aspect-[9/11]"
-          class="w-56 rounded-2xl sm:w-72"
-        />
-        <HandwrittenText text="Ideas que se fabrican" class="absolute -bottom-4 right-0" />
-      </div>
-    </div>
+      </Container>
+    </BackgroundSlot>
   </section>
 
   <!-- 8. CTA -->
