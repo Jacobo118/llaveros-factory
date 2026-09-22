@@ -18,12 +18,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     background-color: var(--color-ink);
     color: #ffffff;
     font-family: var(--font-sans);
+    overflow-x: hidden;
   }
 
   /* La fuente condensada se reserva para titulares grandes (h1/h2) y para
@@ -66,5 +68,38 @@
   .fade-in.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Carrusel horizontal en móvil: la pista hace scroll con snap y sin
+     barra de scroll visible; cada tarjeta ocupa la mayor parte del ancho
+     pero deja asomar un poco la siguiente, para que se note que hay más
+     contenido a la derecha. A partir de sm: se desactiva (vuelve a grid). */
+  .carousel-track {
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .carousel-track {
+      scroll-snap-type: none;
+    }
+  }
+
+  .carousel-item {
+    scroll-snap-align: center;
+    flex: 0 0 auto;
+    width: 82%;
+  }
+
+  @media (min-width: 640px) {
+    .carousel-item {
+      width: auto;
+      flex: initial;
+    }
   }
 }

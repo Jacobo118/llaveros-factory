@@ -1,0 +1,45 @@
+---
+// Carrusel horizontal solo en móvil (con "peek" de la siguiente tarjeta y
+// flechas para navegar); a partir de sm: vuelve a ser una grid normal.
+// Los hijos (slot) necesitan las clases de la clase CSS global
+// ".carousel-item" para el ancho/snap en móvil.
+import Icon from "./Icon.astro";
+
+interface Props {
+  id: string;
+  light?: boolean;
+  class?: string; // columnas del grid a partir de sm: (ej. "sm:grid-cols-2 lg:grid-cols-4")
+}
+
+const { id, light = false, class: className = "" } = Astro.props;
+
+const arrowTone = light
+  ? "border-black/15 text-black/50 hover:border-brand hover:text-brand"
+  : "border-white/15 text-white/60 hover:border-brand hover:text-brand";
+---
+
+<div
+  id={id}
+  class={`carousel-track flex gap-4 overflow-x-auto scroll-smooth -mx-5 px-5 pb-1 sm:mx-0 sm:grid sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 ${className}`}
+>
+  <slot />
+</div>
+
+<div class="mt-5 flex justify-center gap-3 sm:hidden">
+  <button
+    type="button"
+    data-carousel-prev={id}
+    aria-label="Ver anterior"
+    class={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${arrowTone}`}
+  >
+    <Icon name="chevron-left" class="h-5 w-5" />
+  </button>
+  <button
+    type="button"
+    data-carousel-next={id}
+    aria-label="Ver siguiente"
+    class={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${arrowTone}`}
+  >
+    <Icon name="chevron-right" class="h-5 w-5" />
+  </button>
+</div>

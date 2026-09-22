@@ -76,7 +76,9 @@ const galleryImages = [
       size="1920x1000px"
       tone="dark"
       gradient="left-soft"
-      class="flex min-h-[85vh] items-center"
+      fit="contain-mobile"
+      imgClass="sm:object-[78%_center]"
+      class="flex min-h-[60vh] items-center sm:min-h-[85vh]"
     >
       <Container align="left" class="relative flex h-full w-full items-center py-14">
         <div class="flex max-w-4xl flex-col items-start gap-7 lg:ml-8 xl:ml-16">
@@ -167,7 +169,7 @@ const galleryImages = [
   <!-- 3. PRECIOS -->
   <section class="bg-light py-12 lg:py-16">
     <Container>
-      <div class="grid gap-8 lg:grid-cols-5 lg:items-center">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:items-center">
         <div class="fade-in flex flex-col gap-7 lg:col-span-2 lg:ml-6 xl:ml-10">
           <SectionTitle
             tag="Precio directo de fábrica"
@@ -233,7 +235,7 @@ const galleryImages = [
   <!-- 5. FILA DOBLE: PAGO + DISEÑO -->
   <section class="bg-light pb-12 lg:pb-16">
     <Container>
-      <div class="grid gap-5 lg:grid-cols-5">
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-5">
         <div class="fade-in flex flex-col justify-center gap-3 rounded-2xl bg-light-card p-6 sm:p-7 lg:col-span-2">
           <div class="flex items-center gap-3">
             <Icon name="credit-card" class="h-6 w-6 text-brand" />
@@ -307,9 +309,10 @@ const galleryImages = [
       size="1920x700px"
       tone="dark"
       gradient="left-soft"
-      class="min-h-[70vh] sm:min-h-[560px]"
+      fit="contain-mobile"
+      class="min-h-[55vh] sm:min-h-[560px]"
     >
-      <Container class="relative flex h-full min-h-[70vh] flex-col items-start py-14 sm:min-h-[560px] sm:flex-row sm:items-center">
+      <Container class="relative flex h-full min-h-[55vh] flex-col items-start py-14 sm:min-h-[560px] sm:flex-row sm:items-center">
         <div class="fade-in flex max-w-xl flex-col gap-6">
           <h2 class="text-4xl sm:text-5xl text-white">
             Somos fabricantes desde hace <span class="text-brand">más de 10 años</span>

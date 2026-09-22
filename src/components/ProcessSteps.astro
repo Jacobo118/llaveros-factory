@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import Carousel from "./Carousel.astro";
 
 export type Step = {
   number: string;
@@ -15,9 +16,9 @@ interface Props {
 const { steps } = Astro.props;
 ---
 
-<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+<Carousel id="process-carousel" light class="sm:grid-cols-2 lg:grid-cols-4">
   {steps.map((step, i) => (
-    <div class="relative">
+    <div class="carousel-item relative">
       <div class="fade-in flex h-full flex-col gap-4 rounded-2xl bg-light-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg sm:p-7">
         <div class="flex items-center gap-3">
           <span class="font-display text-4xl font-bold text-brand sm:text-5xl">{step.number}</span>
@@ -33,4 +34,4 @@ const { steps } = Astro.props;
       )}
     </div>
   ))}
-</div>
+</Carousel>

@@ -86,5 +86,26 @@ const localBusinessSchema = {
       );
       document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
     </script>
+
+    <script>
+      // Flechas de los carruseles móviles (Carousel.astro): desplazan la
+      // pista una tarjeta hacia delante o hacia atrás.
+      document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        const btn = target.closest<HTMLElement>("[data-carousel-prev], [data-carousel-next]");
+        if (!btn) return;
+
+        const isPrev = "carouselPrev" in btn.dataset;
+        const id = isPrev ? btn.dataset.carouselPrev : btn.dataset.carouselNext;
+        const track = id ? document.getElementById(id) : null;
+        if (!track) return;
+
+        const firstCard = track.querySelector<HTMLElement>(":scope > *");
+        const gap = parseFloat(getComputedStyle(track).columnGap || "16") || 16;
+        const amount = firstCard ? firstCard.getBoundingClientRect().width + gap : track.clientWidth * 0.82;
+
+        track.scrollBy({ left: isPrev ? -amount : amount, behavior: "smooth" });
+      });
+    </script>
   </body>
 </html>

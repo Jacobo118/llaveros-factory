@@ -6,6 +6,7 @@ import Icon from "../components/Icon.astro";
 import ImageSlot from "../components/ImageSlot.astro";
 import PriceTable from "../components/PriceTable.astro";
 import CTABanner from "../components/CTABanner.astro";
+import Carousel from "../components/Carousel.astro";
 import { PRECIOS_LLAVEROS, PRECIOS_NOTA } from "../data/precios";
 
 const ventajas = [
@@ -42,10 +43,10 @@ const llaverosGaleria = [
   path="/llaveros"
 >
   <section class="bg-ink pt-10 pb-8 sm:pt-14">
-    <Container class="grid gap-10 lg:grid-cols-2 lg:items-center">
+    <Container class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
       <div class="fade-in flex flex-col gap-6">
         <p class="label-tag text-base sm:text-lg">Llaveros de PVC</p>
-        <h1 class="text-6xl sm:text-7xl text-white">
+        <h1 class="text-5xl sm:text-7xl text-white">
           Llaveros <span class="text-brand">personalizados</span>
         </h1>
         <p class="max-w-lg text-xl text-white/70">
@@ -60,22 +61,24 @@ const llaverosGaleria = [
         size="433x577px (fondo transparente)"
         aspect="aspect-[4/3]"
         bare
-        class="scale-125"
+        class="sm:scale-125"
       />
     </Container>
   </section>
 
   <section class="bg-ink pb-14">
-    <Container class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {ventajas.map((v) => (
-        <div class="fade-in flex flex-col gap-3 rounded-2xl border-2 border-brand bg-card p-6 transition-all duration-200 hover:-translate-y-1">
-          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
-            <Icon name={v.icon} class="h-5 w-5" />
-          </span>
-          <h3 class="text-lg font-bold text-white">{v.title}</h3>
-          <p class="text-sm text-white/60">{v.desc}</p>
-        </div>
-      ))}
+    <Container>
+      <Carousel id="llaveros-ventajas-carousel" class="gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {ventajas.map((v) => (
+          <div class="carousel-item fade-in flex flex-col gap-3 rounded-2xl border-2 border-brand bg-card p-6 transition-all duration-200 hover:-translate-y-1">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand/15 text-brand">
+              <Icon name={v.icon} class="h-5 w-5" />
+            </span>
+            <h3 class="text-lg font-bold text-white">{v.title}</h3>
+            <p class="text-sm text-white/60">{v.desc}</p>
+          </div>
+        ))}
+      </Carousel>
     </Container>
   </section>
 
@@ -88,9 +91,9 @@ const llaverosGaleria = [
         align="center"
         class="mx-auto mb-10 max-w-xl text-center [&>h2]:mx-auto"
       />
-      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <Carousel id="llaveros-usos-carousel" light class="gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {usos.map((u) => (
-          <div class="fade-in flex flex-col items-center gap-3 rounded-2xl border-2 border-brand bg-card p-8 text-center transition-all duration-200 hover:-translate-y-1">
+          <div class="carousel-item fade-in flex flex-col items-center gap-3 rounded-2xl border-2 border-brand bg-card p-8 text-center transition-all duration-200 hover:-translate-y-1">
             <span class="flex h-16 w-16 items-center justify-center rounded-full bg-brand/15 text-brand">
               <Icon name={u.icon} class="h-8 w-8" />
             </span>
@@ -98,7 +101,7 @@ const llaverosGaleria = [
             <p class="text-sm text-white/60">{u.desc}</p>
           </div>
         ))}
-      </div>
+      </Carousel>
     </Container>
   </section>
 

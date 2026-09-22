@@ -13,7 +13,11 @@ interface Props {
   gradient?: "left" | "left-strong" | "left-soft" | "full";
   class?: string;
   imgClass?: string; // clases extra para la <img> (encuadre, rotación, escala)
-  fit?: "cover" | "contain"; // "contain" evita recortar la imagen (se ve entera)
+  // "contain" evita recortar la imagen en todos los tamaños.
+  // "contain-mobile" la muestra entera solo en móvil (donde el recuadro es
+  // muy alto y estrecho y "cover" dejaría solo una tira de la foto) y
+  // recortada tipo "cover" a partir de sm: (donde ya hay sitio de sobra).
+  fit?: "cover" | "contain" | "contain-mobile";
 }
 
 const {
@@ -28,6 +32,13 @@ const {
 } = Astro.props;
 
 const baseBg = tone === "brand" ? "bg-brand-dark" : "bg-ink";
+
+const fitClass =
+  fit === "contain"
+    ? "object-contain"
+    : fit === "contain-mobile"
+      ? "object-contain sm:object-cover"
+      : "object-cover";
 
 const gradients: Record<string, string> = {
   left:
@@ -57,7 +68,7 @@ const gradients: Record<string, string> = {
     alt=""
     loading="lazy"
     decoding="async"
-    class={`bg-slot__img absolute inset-0 -z-10 h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"} ${imgClass}`}
+    class={`bg-slot__img absolute inset-0 -z-10 h-full w-full ${fitClass} ${imgClass}`}
     onerror="this.closest('.bg-slot').classList.add('bg-slot--missing'); this.remove();"
   />
   <div class={`absolute inset-0 -z-10 ${gradients[gradient]}`}></div>
