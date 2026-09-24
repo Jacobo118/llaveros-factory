@@ -15,6 +15,7 @@ const { title, description, path = "/" } = Astro.props;
 
 const fullTitle = path === "/" ? `${SITE.name} — ${SITE.tagline}` : `${title} | ${SITE.name}`;
 const canonicalURL = new URL(path, SITE.url);
+const ogImageURL = new URL("/img/og-cover.png", SITE.url);
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -45,12 +46,16 @@ const localBusinessSchema = {
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={new URL("/img/og-cover.jpg", SITE.url)} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={SITE.name} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
