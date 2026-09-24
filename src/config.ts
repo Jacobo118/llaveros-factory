@@ -6,7 +6,7 @@ export const SITE = {
   tagline: "Llaveros e imanes de PVC personalizados",
   description:
     "Fabricante de llaveros e imanes de PVC personalizados con más de 10 años de experiencia. Fabricación propia, moldes gratis y envío incluido.",
-  url: "https://llaverosfactory.com",
+  url: "https://www.llaverosfactory.com",
 };
 
 export const CONTACT = {
