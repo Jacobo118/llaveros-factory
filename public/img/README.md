@@ -89,4 +89,4 @@ fondo oscuro liso, igual que "Cómo trabajamos".
 
 | Archivo | Dónde sale | Tamaño | Estado |
 |---|---|---|---|
-| `og-cover.png` | Imagen Open Graph/Twitter al compartir la web en redes (todas las páginas usan la misma) | 1200x630px | ⚠️ placeholder — fondo negro, llavero "Llaveros Factory" grande y texto "Llaveros e imanes de PVC personalizados". Sustituir por una versión con foto real de producto antes de publicar. |
+| `og-cover.jpg` | Imagen Open Graph/Twitter al compartir la web en redes (todas las páginas usan la misma) | 1200x630px | ✅ colocado |

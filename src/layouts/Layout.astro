@@ -15,7 +15,7 @@ const { title, description, path = "/" } = Astro.props;
 
 const fullTitle = path === "/" ? `${SITE.name} — ${SITE.tagline}` : `${title} | ${SITE.name}`;
 const canonicalURL = new URL(path, SITE.url);
-const ogImageURL = new URL("/img/og-cover.png", SITE.url);
+const ogImageURL = new URL("/img/og-cover.jpg", SITE.url);
 
 const localBusinessSchema = {
   "@context": "https://schema.org",
